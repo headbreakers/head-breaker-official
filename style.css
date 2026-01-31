@@ -1,136 +1,51 @@
-/* RESET */
-* {
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-/* FOND ÉTOILES */
-.stars {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.stars::after {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: transparent;
-  box-shadow:
-    50px 120px white,
-    200px 400px white,
-    600px 100px white,
-    900px 300px white,
-    1300px 700px white,
-    1600px 200px white,
-    1800px 500px white,
-    2100px 100px white;
-  animation: starMove 60s linear infinite;
-}
-
-@keyframes starMove {
-  0% { transform: translateY(0) translateX(0); }
-  100% { transform: translateY(-2000px) translateX(-1000px); }
-}
-
-/* BANDEAU LED ROUGE AUTOUR DE LA CARTE */
-.login {
-  position: relative;
-  width: 300px;
-  padding: 30px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
-  text-align: center;
-  z-index: 1;
-}
-
-.login::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  width: calc(100% + 8px);
-  height: calc(100% + 8px);
-  border-radius: 24px;
-  background: linear-gradient(270deg, #ff0000, #800000, #ff0000);
-  background-size: 600% 600%;
-  animation: ledGlow 3s linear infinite;
-  z-index: -1;
-}
-
-@keyframes ledGlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-/* FOND */
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a, #1b1b1b);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+
+  /* Fond noir */
+  background: black;
 }
 
-/* CARTE VERRE FLOUTÉ */
-.login {
-  width: 300px;
-  padding: 30px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
-  text-align: center;
+/* Couche d'étoiles */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-repeat: repeat;
+  animation: starsMove 120s linear infinite;
+  pointer-events: none;
 }
 
-/* TITRE */
-.login h2 {
-  color: white;
-  margin-bottom: 25px;
+/* Petites étoiles */
+body::before {
+  background-image: radial-gradient(1px 1px at 20px 30px, white, transparent),
+                    radial-gradient(1px 1px at 100px 150px, white, transparent),
+                    radial-gradient(1px 1px at 200px 80px, white, transparent),
+                    radial-gradient(1px 1px at 300px 200px, white, transparent);
+  opacity: 0.6;
 }
 
-/* INPUTS */
-.login input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border-radius: 14px;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  outline: none;
+/* Étoiles plus grosses */
+body::after {
+  background-image: radial-gradient(2px 2px at 50px 50px, white, transparent),
+                    radial-gradient(2px 2px at 250px 120px, white, transparent),
+                    radial-gradient(2px 2px at 400px 300px, white, transparent);
+  animation-duration: 180s;
+  opacity: 0.4;
 }
 
-.login input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* BOUTON ROUGE SOMBRE */
-.login button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 16px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  background: linear-gradient(135deg, #4b0f1a, #8b0000);
-  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.6);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.login button:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 20px rgba(139, 0, 0, 0.9);
+/* Animation du déplacement */
+@keyframes starsMove {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-500px, -500px);
+  }
 }
