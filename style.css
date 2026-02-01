@@ -7,47 +7,75 @@ body{
   color:#fff;
 }
 
-/* TOP BAR */
+/* TOPBAR */
 .topbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
   background:#0b0b0b;
   border-bottom:1px solid #222;
-  padding:12px 16px;
+}
+
+.burger{
+  background:#111;
+  border:1px solid #222;
+  color:#fff;
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:18px;
 }
 
 .brand{
   font-weight:900;
   letter-spacing:.3px;
-  margin-bottom:8px;
 }
 
-/* NAV */
-.nav{
+.right{
+  margin-left:auto;
+  opacity:.8;
+  font-size:13px;
+}
+
+/* LAYOUT */
+.layout{
   display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+  min-height: calc(100vh - 52px);
 }
 
-.nav-btn{
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#0f0f0f;
+  border-right:1px solid #222;
+  padding:12px;
+}
+
+.nav-item{
+  width:100%;
   background:#151515;
   border:1px solid #222;
   color:#fff;
-  padding:8px 12px;
+  padding:10px 12px;
   border-radius:12px;
   cursor:pointer;
-  font-size:14px;
+  text-align:left;
+  margin-bottom:10px;
 }
 
-.nav-btn:hover{
+.nav-item:hover{
   border-color:#e10600;
 }
 
-.nav-btn.active{
+.nav-item.active{
   background:#220000;
   border-color:#e10600;
 }
 
 /* MAIN */
 .main{
+  flex:1;
   padding:16px;
 }
 
@@ -57,12 +85,11 @@ body{
   border:1px solid #222;
   border-radius:16px;
   padding:16px;
-  max-width: 1000px;
+  max-width: 950px;
 }
 
 .page.show{ display:block; }
 
-/* BUTTON */
 .btn{
   background:#e10600;
   border:0;
@@ -71,4 +98,16 @@ body{
   border-radius:12px;
   cursor:pointer;
   font-weight:700;
+}
+
+/* MOBILE */
+@media (max-width: 900px){
+  .layout{ display:block; }
+  .sidebar{
+    display:none;
+    width:auto;
+    border-right:0;
+    border-bottom:1px solid #222;
+  }
+  .sidebar.open{ display:block; }
 }
