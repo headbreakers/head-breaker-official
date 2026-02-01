@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Groupe Motard — Accueil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1>GROUPE MOTARD</h1>
+    <p>Respect • Fraternité • Route</p>
+  </header>
+
+  <nav class="menu">
+    <button data-page="pointage" class="active">Pointage</button>
+    <button data-page="cotisation">Cotisation</button>
+    <button data-page="grades">Grades</button>
+    <button data-page="absence">Absence</button>
+    <button data-page="hierarchie">Hiérarchie</button>
+    <button data-page="annonce">Annonce</button>
+    <button data-page="membres">Membres</button>
+  </nav>
+
+  <main class="content">
+    <section id="pointage" class="page active">
+      <h2>Pointage</h2>
+      <p>Valide ta présence aux runs et réunions.</p>
+    </section>
+
+    <section id="cotisation" class="page">
+      <h2>Cotisation</h2>
+      <p>Suivi des cotisations du groupe.</p>
+    </section>
+
+    <section id="grades" class="page">
+      <h2>Évolution des grades</h2>
+      <p>Progression des membres.</p>
+    </section>
+
+    <section id="absence" class="page">
+      <h2>Absence</h2>
+      <p>Déclarer une absence.</p>
+    </section>
+
+    <section id="hierarchie" class="page">
+      <h2>Hiérarchie & table</h2>
+      <p>Organisation interne du groupe.</p>
+    </section>
+
+    <section id="annonce" class="page">
+      <h2>Annonces</h2>
+      <p>Messages importants du groupe.</p>
+    </section>
+
+    <section id="membres" class="page">
+      <h2>Membres du groupe</h2>
+      <p>Liste des membres, grade, photo.</p>
+    </section>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll(".menu button");
+    const pages = document.querySelectorAll(".page");
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        pages.forEach(p => p.classList.remove("active"));
+
+        btn.classList.add("active");
+        document.getElementById(btn.dataset.page).classList.add("active");
+      });
+    });
+  </script>
+
+</body>
+</html>
