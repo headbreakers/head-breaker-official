@@ -13,21 +13,123 @@
     <p>Respect • Fraternité • Route</p>
   </header>
 
-  <nav class="menu">
-    <button data-page="pointage" class="active">Pointage</button>
-    <button data-page="cotisation">Cotisation</button>
-    <button data-page="grades">Grades</button>
-    <button data-page="absence">Absence</button>
-    <button data-page="hierarchie">Hiérarchie</button>
-    <button data-page="annonce">Annonce</button>
-    <button data-page="membres">Membres</button>
-  </nav>
+ <section id="pointage" class="page active">
+  <div class="pt-header">
+    <div class="pt-title">
+      <div class="pt-icon">🗓️</div>
+      <div>
+        <h2>Planning & Pointage</h2>
+        <div class="pt-sub">—</div>
+      </div>
+    </div>
 
-  <main class="content">
-    <section id="pointage" class="page active">
-      <h2>Pointage</h2>
-      <p>Valide ta présence aux runs et réunions.</p>
-    </section>
+    <div class="pt-tabs">
+      <button class="pt-tab" data-pt-tab="planning">Planning</button>
+      <button class="pt-tab is-active" data-pt-tab="pointage">Pointage</button>
+      <button class="pt-tab" data-pt-tab="historique">Historique membres</button>
+    </div>
+  </div>
+
+  <!-- CONTENU ONGLET: POINTAGE -->
+  <div class="pt-panel is-visible" id="pt-pointage">
+    <div class="pt-grid">
+      <div class="pt-card">
+        <div class="pt-card__head">
+          <span class="pt-badge">⏱️</span>
+          <h3>Pointage du jour</h3>
+        </div>
+
+        <div class="pt-sep"></div>
+
+        <div class="pt-actions">
+          <button class="pt-btn pt-btn--primary" type="button">Pointer entrée</button>
+          <button class="pt-btn pt-btn--ghost" type="button">Pointer sortie</button>
+        </div>
+
+        <div class="pt-sep"></div>
+      </div>
+
+      <div class="pt-card">
+        <div class="pt-card__head">
+          <span class="pt-badge">📌</span>
+          <h3>Mes shifts (semaine)</h3>
+        </div>
+
+        <div class="pt-sep"></div>
+
+        <p class="pt-muted">Utilise l’onglet Planning pour voir le détail.</p>
+      </div>
+    </div>
+
+    <div class="pt-tableWrap">
+      <table class="pt-table">
+        <thead>
+          <tr>
+            <th>Employé</th>
+            <th>Date</th>
+            <th>Entrée</th>
+            <th>Sortie</th>
+            <th>Durée</th>
+            <th>Validé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CONTENU ONGLET: PLANNING -->
+  <div class="pt-panel" id="pt-planning">
+    <div class="pt-card">
+      <div class="pt-card__head">
+        <span class="pt-badge">🗓️</span>
+        <h3>Planning</h3>
+      </div>
+      <div class="pt-sep"></div>
+      <p class="pt-muted">Ici tu mettras le planning (runs, réunions, événements).</p>
+    </div>
+  </div>
+
+  <!-- CONTENU ONGLET: HISTORIQUE -->
+  <div class="pt-panel" id="pt-historique">
+    <div class="pt-card">
+      <div class="pt-card__head">
+        <span class="pt-badge">🧾</span>
+        <h3>Historique membres</h3>
+      </div>
+      <div class="pt-sep"></div>
+      <p class="pt-muted">Historique des pointages par membre (à brancher plus tard).</p>
+    </div>
+  </div>
+
+  <script>
+    // Tabs internes Pointage (Planning/Pointage/Historique)
+    (function(){
+      const tabs = document.querySelectorAll(".pt-tab");
+      const panels = {
+        planning: document.getElementById("pt-planning"),
+        pointage: document.getElementById("pt-pointage"),
+        historique: document.getElementById("pt-historique"),
+      };
+
+      tabs.forEach(t => {
+        t.addEventListener("click", () => {
+          tabs.forEach(x => x.classList.remove("is-active"));
+          t.classList.add("is-active");
+
+          Object.values(panels).forEach(p => p.classList.remove("is-visible"));
+          const key = t.dataset.ptTab;
+          panels[key].classList.add("is-visible");
+        });
+      });
+    })();
+  </script>
+</section>
+
 
     <section id="cotisation" class="page">
       <h2>Cotisation</h2>
