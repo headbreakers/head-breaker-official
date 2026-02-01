@@ -1,181 +1,151 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Groupe Motard — Accueil</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Groupe Motard – Connexion</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
-
-  <header class="header">
-    <h1>GROUPE MOTARD</h1>
-    <p>Respect • Fraternité • Route</p>
-  </header>
-
- <section id="pointage" class="page active">
-  <div class="pt-header">
-    <div class="pt-title">
-      <div class="pt-icon">🗓️</div>
-      <div>
-        <h2>Planning & Pointage</h2>
-        <div class="pt-sub">—</div>
-      </div>
-    </div>
-
-    <div class="pt-tabs">
-      <button class="pt-tab" data-pt-tab="planning">Planning</button>
-      <button class="pt-tab is-active" data-pt-tab="pointage">Pointage</button>
-      <button class="pt-tab" data-pt-tab="historique">Historique membres</button>
-    </div>
-  </div>
-
-  <!-- CONTENU ONGLET: POINTAGE -->
-  <div class="pt-panel is-visible" id="pt-pointage">
-    <div class="pt-grid">
-      <div class="pt-card">
-        <div class="pt-card__head">
-          <span class="pt-badge">⏱️</span>
-          <h3>Pointage du jour</h3>
-        </div>
-
-        <div class="pt-sep"></div>
-
-        <div class="pt-actions">
-          <button class="pt-btn pt-btn--primary" type="button">Pointer entrée</button>
-          <button class="pt-btn pt-btn--ghost" type="button">Pointer sortie</button>
-        </div>
-
-        <div class="pt-sep"></div>
-      </div>
-
-      <div class="pt-card">
-        <div class="pt-card__head">
-          <span class="pt-badge">📌</span>
-          <h3>Mes shifts (semaine)</h3>
-        </div>
-
-        <div class="pt-sep"></div>
-
-        <p class="pt-muted">Utilise l’onglet Planning pour voir le détail.</p>
-      </div>
-    </div>
-
-    <div class="pt-tableWrap">
-      <table class="pt-table">
-        <thead>
-          <tr>
-            <th>Employé</th>
-            <th>Date</th>
-            <th>Entrée</th>
-            <th>Sortie</th>
-            <th>Durée</th>
-            <th>Validé</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- CONTENU ONGLET: PLANNING -->
-  <div class="pt-panel" id="pt-planning">
-    <div class="pt-card">
-      <div class="pt-card__head">
-        <span class="pt-badge">🗓️</span>
-        <h3>Planning</h3>
-      </div>
-      <div class="pt-sep"></div>
-      <p class="pt-muted">Ici tu mettras le planning (runs, réunions, événements).</p>
-    </div>
-  </div>
-
-  <!-- CONTENU ONGLET: HISTORIQUE -->
-  <div class="pt-panel" id="pt-historique">
-    <div class="pt-card">
-      <div class="pt-card__head">
-        <span class="pt-badge">🧾</span>
-        <h3>Historique membres</h3>
-      </div>
-      <div class="pt-sep"></div>
-      <p class="pt-muted">Historique des pointages par membre (à brancher plus tard).</p>
-    </div>
-  </div>
-
-  <script>
-    // Tabs internes Pointage (Planning/Pointage/Historique)
-    (function(){
-      const tabs = document.querySelectorAll(".pt-tab");
-      const panels = {
-        planning: document.getElementById("pt-planning"),
-        pointage: document.getElementById("pt-pointage"),
-        historique: document.getElementById("pt-historique"),
-      };
-
-      tabs.forEach(t => {
-        t.addEventListener("click", () => {
-          tabs.forEach(x => x.classList.remove("is-active"));
-          t.classList.add("is-active");
-
-          Object.values(panels).forEach(p => p.classList.remove("is-visible"));
-          const key = t.dataset.ptTab;
-          panels[key].classList.add("is-visible");
-        });
-      });
-    })();
-  </script>
-</section>
-
-
-    <section id="cotisation" class="page">
-      <h2>Cotisation</h2>
-      <p>Suivi des cotisations du groupe.</p>
+  <main class="stage">
+    <!-- Lampe sur pied + tirette -->
+    <section class="lamp-area" aria-label="Lampe">
+      <button class="lamp" id="lampBtn" type="button" aria-pressed="false" aria-label="Allumer / éteindre la lampe">
+        <span class="lamp__shade" aria-hidden="true"></span>
+        <span class="lamp__stem" aria-hidden="true"></span>
+        <span class="lamp__base" aria-hidden="true"></span>
+        <span class="lamp__chain" aria-hidden="true"></span>
+        <span class="lamp__knob" aria-hidden="true"></span>
+        <span class="lamp__hint">Tire la corde</span>
+      </button>
     </section>
 
-    <section id="grades" class="page">
-      <h2>Évolution des grades</h2>
-      <p>Progression des membres.</p>
-    </section>
+    <!-- Connexion -->
+    <section class="login-wrap" id="loginWrap" aria-hidden="true">
+      <div class="login-box" role="region" aria-label="Connexion">
 
-    <section id="absence" class="page">
-      <h2>Absence</h2>
-      <p>Déclarer une absence.</p>
-    </section>
+        <header class="login-head">
+          <h1 class="title">Bienvenue</h1>
+          <p class="subtitle">Accès privé — Groupe Motard</p>
+        </header>
 
-    <section id="hierarchie" class="page">
-      <h2>Hiérarchie & table</h2>
-      <p>Organisation interne du groupe.</p>
-    </section>
+        <form id="loginForm" class="form" novalidate>
+          <label class="field">
+            <span class="field__label">Pseudo</span>
+            <input id="username" name="username" type="text" placeholder="ex: RoadKing" autocomplete="username" required />
+          </label>
 
-    <section id="annonce" class="page">
-      <h2>Annonces</h2>
-      <p>Messages importants du groupe.</p>
-    </section>
+          <label class="field">
+            <span class="field__label">Mot de passe</span>
+            <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+          </label>
 
-    <section id="membres" class="page">
-      <h2>Membres du groupe</h2>
-      <p>Liste des membres, grade, photo.</p>
+          <div class="row">
+            <label class="check">
+              <input id="remember" type="checkbox" />
+              <span>Rester connecté</span>
+            </label>
+
+            <button class="link" type="button" id="forgotBtn">Mot de passe oublié</button>
+          </div>
+
+          <button class="btn btn-primary" type="submit" id="loginBtn">
+            <span class="btn__text">Se connecter</span>
+            <span class="btn__spinner" aria-hidden="true"></span>
+          </button>
+
+          <p class="hint">
+            Pas de compte ?
+            <a class="link link-strong" href="register.html">Créer un compte</a>
+          </p>
+
+          <div class="alert" id="alert" role="alert" aria-live="polite"></div>
+        </form>
+
+        <div class="footer">© Groupe motard — privé</div>
+      </div>
     </section>
   </main>
 
   <script>
-    const buttons = document.querySelectorAll(".menu button");
-    const pages = document.querySelectorAll(".page");
+    // =========================
+    // SUPABASE CONFIG (à remplir)
+    // =========================
+    const SUPABASE_URL = "MET_TON_URL_ICI";
+    const SUPABASE_ANON_KEY = "MET_TA_CLE_ICI";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        buttons.forEach(b => b.classList.remove("active"));
-        pages.forEach(p => p.classList.remove("active"));
+    // pseudo -> email technique (l'utilisateur ne le voit pas)
+    const toAuthEmail = (username) => `${username.toLowerCase()}@motards.local`;
 
-        btn.classList.add("active");
-        document.getElementById(btn.dataset.page).classList.add("active");
-      });
+    // =========================
+    // UI helpers
+    // =========================
+    const lampBtn = document.getElementById("lampBtn");
+    const loginWrap = document.getElementById("loginWrap");
+    const form = document.getElementById("loginForm");
+    const alertBox = document.getElementById("alert");
+    const loginBtn = document.getElementById("loginBtn");
+    const forgotBtn = document.getElementById("forgotBtn");
+
+    function setLamp(on) {
+      document.documentElement.classList.toggle("lamp-on", on);
+      lampBtn.setAttribute("aria-pressed", String(on));
+      loginWrap.setAttribute("aria-hidden", String(!on));
+      if (on) setTimeout(() => document.getElementById("username").focus(), 200);
+    }
+
+    function setAlert(type, msg) {
+      alertBox.className = "alert " + (type ? `alert--${type}` : "");
+      alertBox.textContent = msg || "";
+      alertBox.style.display = msg ? "block" : "none";
+    }
+
+    function setLoading(isLoading) {
+      loginBtn.disabled = isLoading;
+      loginBtn.classList.toggle("is-loading", isLoading);
+    }
+
+    lampBtn.addEventListener("click", () => {
+      const isOn = document.documentElement.classList.contains("lamp-on");
+      setLamp(!isOn);
+      setAlert("", "");
     });
-  </script>
 
-</body>
-</html>
+    setLamp(false);
+
+    // =========================
+    // Auto-redirect si déjà connecté
+    // =========================
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) window.location.href = "dashboard.html";
+    })();
+
+    // =========================
+    // LOGIN
+    // =========================
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setAlert("", "");
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!username || !password) {
+        setAlert("error", "Remplis le pseudo et le mot de passe.");
+        return;
+      }
+
+      // règle pseudo (propre)
+      if (!/^[a-zA-Z0-9._-]{3,20}$/.test(username)) {
+        setAlert("error", "Pseudo invalide (3–20 caractères : lettres, chiffres, . _ -).");
+        return;
+      }
+
+      setLoading(true);
+
+      const email = toAuthEmail(username);
+      const { error }
