@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Head Breakers</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LAMPE (interrupteur visuel) -->
+  <button class="lamp" id="lampBtn" aria-label="Allumer le menu">
+    <div class="shade"></div>
+    <div class="stem"></div>
+    <div class="base"></div>
+    <div class="chain"></div>
+    <div class="knob"></div>
+  </button>
+
+  <!-- MENU -->
+  <aside class="menu" id="menu">
+    <h1>Head Breakers</h1>
+
+    <button class="menu-item" data-page="pointage">Pointage</button>
+    <button class="menu-item" data-page="cotisation">Cotisation</button>
+    <button class="menu-item" data-page="grades">Évolution des grades</button>
+    <button class="menu-item" data-page="absence">Absence</button>
+    <button class="menu-item" data-page="hierarchie">Hiérarchie</button>
+    <button class="menu-item" data-page="annonce">Annonces</button>
+    <button class="menu-item" data-page="membres">Membres</button>
+  </aside>
+
+  <!-- CONTENU -->
+  <main class="content" id="content">
+
+    <section class="page visible" id="pointage">
+      <h2>Pointage</h2>
+      <p>Enregistrer une présence.</p>
+      <button class="primary">Je pointe</button>
+    </section>
+
+    <section class="page" id="cotisation">
+      <h2>Cotisation</h2>
+      <p>Suivi des paiements.</p>
+    </section>
+
+    <section class="page" id="grades">
+      <h2>Évolution des grades</h2>
+      <p>Historique des promotions.</p>
+    </section>
+
+    <section class="page" id="absence">
+      <h2>Absence</h2>
+      <p>Déclarer une absence.</p>
+    </section>
+
+    <section class="page" id="hierarchie">
+      <h2>Hiérarchie</h2>
+      <p>Organisation du groupe.</p>
+    </section>
+
+    <section class="page" id="annonce">
+      <h2>Annonces</h2>
+      <p>Messages importants.</p>
+    </section>
+
+    <section class="page" id="membres">
+      <h2>Membres du groupe</h2>
+      <ul>
+        <li>Dante William — Caporal</li>
+        <li>RoadKing — Sergent</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script>
+    const lamp = document.getElementById("lampBtn");
+    const pages = document.querySelectorAll(".page");
+    const items = document.querySelectorAll(".menu-item");
+
+    // Lampe = ouvrir / fermer menu
+    lamp.addEventListener("click", () => {
+      document.body.classList.toggle("on");
+    });
+
+    // Navigation
+    items.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.page;
+        pages.forEach(p => p.classList.remove("visible"));
+        document.getElementById(target).classList.add("visible");
+      });
+    });
+  </script>
+
+</body>
+</html>
