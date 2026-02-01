@@ -1,42 +1,50 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Head Breakers</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- LAMPE (interrupteur visuel) -->
-  <button class="lamp" id="lampBtn" aria-label="Allumer le menu">
-    <div class="shade"></div>
-    <div class="stem"></div>
-    <div class="base"></div>
-    <div class="chain"></div>
-    <div class="knob"></div>
-  </button>
+  <header class="topbar">
+    <button class="burger" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
 
-  <!-- MENU -->
-  <aside class="menu" id="menu">
-    <h1>Head Breakers</h1>
+    <div class="brand">
+      <div class="brand__logo">HB</div>
+      <div class="brand__text">
+        <div class="brand__title">Head Breakers</div>
+        <div class="brand__sub">Espace privé</div>
+      </div>
+    </div>
 
-    <button class="menu-item" data-page="pointage">Pointage</button>
-    <button class="menu-item" data-page="cotisation">Cotisation</button>
-    <button class="menu-item" data-page="grades">Évolution des grades</button>
-    <button class="menu-item" data-page="absence">Absence</button>
-    <button class="menu-item" data-page="hierarchie">Hiérarchie</button>
-    <button class="menu-item" data-page="annonce">Annonces</button>
-    <button class="menu-item" data-page="membres">Membres</button>
+    <div class="topbar__right">
+      <span class="pill">🔒 privé</span>
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <nav class="nav">
+      <button class="nav__item is-active" data-page="pointage">🕒 Pointage</button>
+      <button class="nav__item" data-page="cotisation">💶 Cotisation</button>
+      <button class="nav__item" data-page="grades">📈 Évolution des grades</button>
+      <button class="nav__item" data-page="absence">📅 Absence</button>
+      <button class="nav__item" data-page="hierarchie">🏍️ Hiérarchie + positions</button>
+      <button class="nav__item" data-page="annonce">📣 Annonces</button>
+      <button class="nav__item" data-page="membres">👥 Membres</button>
+    </nav>
   </aside>
 
-  <!-- CONTENU -->
-  <main class="content" id="content">
+  <div class="overlay" id="overlay"></div>
 
-    <section class="page visible" id="pointage">
+  <main class="main">
+    <section class="page is-visible" id="pointage">
       <h2>Pointage</h2>
       <p>Enregistrer une présence.</p>
-      <button class="primary">Je pointe</button>
+      <button class="btn primary">Je pointe</button>
     </section>
 
     <section class="page" id="cotisation">
@@ -55,7 +63,7 @@
     </section>
 
     <section class="page" id="hierarchie">
-      <h2>Hiérarchie</h2>
+      <h2>Hiérarchie + position de table</h2>
       <p>Organisation du groupe.</p>
     </section>
 
@@ -66,33 +74,58 @@
 
     <section class="page" id="membres">
       <h2>Membres du groupe</h2>
-      <ul>
-        <li>Dante William — Caporal</li>
-        <li>RoadKing — Sergent</li>
-      </ul>
-    </section>
+      <div class="members">
+        <article class="member">
+          <div class="avatar">DW</div>
+          <div>
+            <div class="name">Dante William</div>
+            <div class="muted">Grade : Caporal</div>
+          </div>
+        </article>
 
+        <article class="member">
+          <div class="avatar">RK</div>
+          <div>
+            <div class="name">RoadKing</div>
+            <div class="muted">Grade : Sergent</div>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
 
   <script>
-    const lamp = document.getElementById("lampBtn");
-    const pages = document.querySelectorAll(".page");
-    const items = document.querySelectorAll(".menu-item");
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
 
-    // Lampe = ouvrir / fermer menu
-    lamp.addEventListener("click", () => {
-      document.body.classList.toggle("on");
+    const navItems = document.querySelectorAll(".nav__item");
+    const pages = document.querySelectorAll(".page");
+
+    function openMenu(open){
+      document.body.classList.toggle("menu-open", open);
+      menuBtn.setAttribute("aria-expanded", String(open));
+    }
+
+    menuBtn.addEventListener("click", () => {
+      openMenu(!document.body.classList.contains("menu-open"));
     });
 
-    // Navigation
-    items.forEach(btn => {
+    overlay.addEventListener("click", () => openMenu(false));
+
+    navItems.forEach(btn => {
       btn.addEventListener("click", () => {
         const target = btn.dataset.page;
-        pages.forEach(p => p.classList.remove("visible"));
-        document.getElementById(target).classList.add("visible");
+
+        navItems.forEach(b => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+
+        pages.forEach(p => p.classList.remove("is-visible"));
+        document.getElementById(target).classList.add("is-visible");
+
+        openMenu(false);
       });
     });
   </script>
-
 </body>
 </html>
